@@ -1,0 +1,17 @@
+---
+#xcat_install_type: 'client'
+
+xcat_core_repo_name: 'xcat-2-core'
+xcat_core_repo_description: 'xCAT 2 Core packages'
+xcat_core_repo_baseurl: 'http://xcat.org/files/xcat/repos/yum/2.12/xcat-core'
+xcat_core_repo_gpgcheck: '1'
+xcat_core_repo_gpgkey: 'http://xcat.org/files/xcat/repos/yum/2.12/xcat-core/repodata/repomd.xml.key'
+xcat_core_repo_enabled: '1'
+
+xcat_dep_repo_name: 'xcat-dep'
+xcat_dep_repo_description: 'xCAT 2 dependencies'
+xcat_dep_repo_baseurl: 'http://xcat.org/files/xcat/repos/yum/xcat-dep/rh7/x86_64'
+xcat_dep_repo_gpgcheck: '1'
+xcat_dep_repo_gpgkey: 'http://xcat.org/files/xcat/repos/yum/xcat-dep/rh7/x86_64/repodata/repomd.xml.key'
+xcat_dep_repo_enabled: '1'
+

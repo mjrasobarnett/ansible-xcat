@@ -1,0 +1,18 @@
+---
+- name: "Clean yum cache"
+  debug: msg="Run yum clean, then remove cache directory"
+  changed_when: True
+  notify:
+    - "Clean yum cache if repository updated (1)"
+    - "Clean yum cache if repository updated (2)"
+
+- name: "Clean yum cache if repository updated (1)"
+  command: yum clean all
+  args:
+    warn: false
+
+- name: "Clean yum cache if repository updated (2)"
+  command: rm -rf /var/cache/yum
+  args:
+    warn: false
+

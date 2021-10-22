@@ -1,0 +1,8 @@
+---
+- name: "Install xCAT client packages"
+  yum:
+    name: "xCAT-client"
+    enablerepo:
+      - "{{ xcat_core_repo_name | default(omit) }}"
+      - "{{ xcat_dep_repo_name | default(omit) }}"
+    state: present

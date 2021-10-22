@@ -1,0 +1,38 @@
+---
+- name: "Configure xCAT package repository"
+  block:
+    - name: "Install xcat core yum repo"
+      yum_repository:
+        name: "{{ xcat_core_repo_name }}"
+        description: "{{ xcat_core_repo_description }}"
+        baseurl: "{{ xcat_core_repo_baseurl }}"
+        gpgcheck: "{{ xcat_core_repo_gpgcheck | default('no') }}"
+        gpgkey: "{{ xcat_core_repo_gpgkey | default(omit) }}"
+        enabled: "{{ xcat_core_repo_enabled | default('no') }}"
+      notify: "Clean yum cache"
+      when: xcat_core_repo_baseurl is defined
+
+    - name: "Install xcat core yum repo gpgkey"
+      rpm_key:
+        state: present
+        key: "{{ xcat_core_repo_gpgkey }}"
+        fingerprint: "{{ xcat_core_repo_gpgkey_fingerprint | default(omit) }}"
+      when: xcat_core_repo_gpgkey is defined
+
+    - name: "Install xcat dep yum repo"
+      yum_repository:
+        name: "{{ xcat_dep_repo_name }}"
+        description: "{{ xcat_dep_repo_description }}"
+        baseurl: "{{ xcat_dep_repo_baseurl }}"
+        gpgcheck: "{{ xcat_dep_repo_gpgcheck | default('no') }}"
+        gpgkey: "{{ xcat_dep_repo_gpgkey | default(omit) }}"
+        enabled: "{{ xcat_dep_repo_enabled | default('no') }}"
+      notify: "Clean yum cache"
+      when: xcat_dep_repo_baseurl is defined
+
+    - name: "Install xcat dep yum repo gpgkey"
+      rpm_key:
+        state: present
+        key: "{{ xcat_dep_repo_gpgkey }}"
+        fingerprint: "{{ xcat_dep_repo_gpgkey_fingerprint | default(omit) }}"
+      when: xcat_dep_repo_gpgkey is defined

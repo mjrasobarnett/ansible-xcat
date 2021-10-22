@@ -1,0 +1,9 @@
+---
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- include_tasks: "repo-{{ ansible_os_family }}.yml"
+
+- include_tasks: "install-client-{{ ansible_os_family }}.yml"
+  when:
+    - xcat_install_type == 'client'

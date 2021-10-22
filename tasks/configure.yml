@@ -1,0 +1,21 @@
+---
+- name: "Manage sssd.conf configuration"
+  template:
+    src: "{{ sssd_conf_template }}"
+    dest: "{{ sssd_conf_path }}"
+    owner: root
+    group: root
+    mode: 0600
+  when: sssd_config is defined
+  notify: "Restart sssd"
+
+- name: "Check if authconfig needs to be run to configure pam/nsswitch"
+  shell: "/usr/bin/test \"$(authconfig --enablesssd --enablesssdauth --test)\" = \"$(authconfig --test)\""
+  register: authconfig_result
+  changed_when: "authconfig_result.rc != 0"
+  check_mode: no
+  failed_when: "authconfig_result.rc >= 2"
+
+- name: "Configure nsswitch and pam for SSSD via authconfig"
+  command: "authconfig --enablesssd --enablesssdauth --update"
+  when: "authconfig_result.rc != 0"
